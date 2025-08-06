@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity, Switch } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity, Switch, GestureResponderEvent } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/core';
+import { createNewBucketItem } from '../services/DbService';
 
 const CreateScreen = () => {
     const navigation:any = useNavigation();
@@ -9,6 +10,14 @@ const CreateScreen = () => {
     const [priority, setPriority] = useState(false)
     const [due, setDue] = useState('')
     const [description, setDescription] = useState('')
+
+    const handleCreation = () => {
+        // Need to pass all our data to the function.
+
+        var items = {title, priority, due, description, isCompleted: false}
+
+        createNewBucketItem(items)
+    }
 
   return (
     <SafeAreaView >
@@ -48,7 +57,7 @@ const CreateScreen = () => {
                 <Text>Priority?</Text>
             </View>
 
-            <TouchableOpacity style={styles.button} >
+            <TouchableOpacity style={styles.button} onPress={handleCreation} >
                 <Text style={styles.buttonText}>Create Bucket List Item</Text>
             </TouchableOpacity>
         
